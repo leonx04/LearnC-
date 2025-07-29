@@ -1,0 +1,12 @@
+D:\Co-pro\C#Learn\WebApplication1\Application\bin\Debug\net8.0\Application.deps.json
+D:\Co-pro\C#Learn\WebApplication1\Application\bin\Debug\net8.0\Application.dll
+D:\Co-pro\C#Learn\WebApplication1\Application\bin\Debug\net8.0\Application.pdb
+D:\Co-pro\C#Learn\WebApplication1\Application\obj\Debug\net8.0\Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\Co-pro\C#Learn\WebApplication1\Application\obj\Debug\net8.0\Application.AssemblyInfoInputs.cache
+D:\Co-pro\C#Learn\WebApplication1\Application\obj\Debug\net8.0\Application.AssemblyInfo.cs
+D:\Co-pro\C#Learn\WebApplication1\Application\obj\Debug\net8.0\Application.csproj.CoreCompileInputs.cache
+D:\Co-pro\C#Learn\WebApplication1\Application\obj\Debug\net8.0\Application.sourcelink.json
+D:\Co-pro\C#Learn\WebApplication1\Application\obj\Debug\net8.0\Application.dll
+D:\Co-pro\C#Learn\WebApplication1\Application\obj\Debug\net8.0\refint\Application.dll
+D:\Co-pro\C#Learn\WebApplication1\Application\obj\Debug\net8.0\Application.pdb
+D:\Co-pro\C#Learn\WebApplication1\Application\obj\Debug\net8.0\ref\Application.dll
