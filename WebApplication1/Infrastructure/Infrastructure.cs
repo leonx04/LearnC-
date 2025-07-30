@@ -4,8 +4,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Infrastructure.Database;
 using Domain.Modules.Category.Repository;
 using Domain.Modules.Category.Services;
+using Domain.Modules.Faq.Repository;
+using Domain.Modules.Faq.Services;
 using Infrastructure.Modules.Category.Repositories;
 using Infrastructure.Modules.Category.Services;
+using Infrastructure.Modules.Faq.Repositories;
+using Infrastructure.Modules.Faq.Services;
 
 namespace Infrastructure;
 
@@ -39,6 +43,8 @@ public static class InfrastructureServices
         // Đăng ký các service
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<ICategoryService, CategoryService>();
+        services.AddScoped<IFaqService, FaqService>();
+        services.AddScoped<IFaqRepository, FaqRepository>();
 
         return services;
     }

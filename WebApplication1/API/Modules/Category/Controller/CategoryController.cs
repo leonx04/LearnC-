@@ -12,7 +12,7 @@ public class CategoryController : ControllerBase
 
     public CategoryController(ICategoryService categoryService)
     {
-        categoryService = categoryService;
+        this.categoryService = categoryService;
     }
 
     [HttpGet]

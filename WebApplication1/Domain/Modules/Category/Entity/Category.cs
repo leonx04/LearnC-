@@ -17,7 +17,6 @@ public class Category : DatimeTrackerEntity
 
     public int? ParentCategoryId { get; set; }
 
-    // Navigation property - danh mục cha
     public Category? ParentCategory { get; set; }
 
     public Status Status { get; set; } = Status.Active;

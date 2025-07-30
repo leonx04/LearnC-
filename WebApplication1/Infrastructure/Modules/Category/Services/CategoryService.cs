@@ -4,6 +4,7 @@ using Domain.Modules.Category.Dto.Request;
 using Domain.Modules.Category.Dto.Response;
 using Domain.Modules.Category.Repository;
 using Domain.Modules.Category.Services;
+using Domain.Modules.Category.Entity;
 
 namespace Infrastructure.Modules.Category.Services;
 

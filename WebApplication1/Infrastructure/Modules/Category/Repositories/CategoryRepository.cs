@@ -20,8 +20,8 @@ public class CategoryRepository : ICategoryRepository
         var query = _context.Categories.Include(c => c.ParentCategory).AsQueryable();
 
         // Lọc theo điều kiện
-        if (!string.IsNullOrWhiteSpace(request.Name))
-            query = query.Where(c => c.Name.Contains(request.Name));
+        if (!string.IsNullOrWhiteSpace(request.KeyWord))
+            query = query.Where(c => c.Name.Contains(request.KeyWord));
 
         if (!string.IsNullOrWhiteSpace(request.PageKey))
             query = query.Where(c => c.PageKey.Contains(request.PageKey));
@@ -33,7 +33,10 @@ public class CategoryRepository : ICategoryRepository
             query = query.Where(c => (int)c.Status == request.Status);
 
         // Sắp xếp
-        query = ApplySorting(query, request.SortBy, request.SortOrder);
+        if (request.SortBy != null && request.SortOrder != null)
+        {
+            query = ApplySorting(query, request.SortBy, request.SortOrder);
+        }
 
         var totalCount = await query.CountAsync();
         
@@ -114,10 +117,18 @@ public class CategoryRepository : ICategoryRepository
 
         return sortBy.ToLower() switch
         {
-            "name" => isDescending ? query.OrderByDescending(c => c.Name) : query.OrderBy(c => c.Name),
-            "pagekey" => isDescending ? query.OrderByDescending(c => c.PageKey) : query.OrderBy(c => c.PageKey),
-            "status" => isDescending ? query.OrderByDescending(c => c.Status) : query.OrderBy(c => c.Status),
-            _ => isDescending ? query.OrderByDescending(c => c.CreatedAt) : query.OrderBy(c => c.CreatedAt)
+            "name" => isDescending 
+                ? query.OrderByDescending(c => c.Name) 
+                : query.OrderBy(c => c.Name),
+            "pagekey" => isDescending 
+                ? query.OrderByDescending(c => c.PageKey) 
+                : query.OrderBy(c => c.PageKey),
+            "status" => isDescending 
+                ? query.OrderByDescending(c => c.Status) 
+                : query.OrderBy(c => c.Status),
+            _ => isDescending 
+                ? query.OrderByDescending(c => c.CreatedAt) 
+                : query.OrderBy(c => c.CreatedAt)
         };
     }
 }
