@@ -28,4 +28,7 @@ public interface ICategoryRepository
     
     // Xóa danh mục
     Task<bool> DeleteAsync(int id);
+    
+    // Kiểm tra danh mục có tồn tại không
+    Task<bool> CheckCategoryExistsAsync(int categoryId);
 }

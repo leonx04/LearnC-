@@ -109,6 +109,11 @@ public class CategoryRepository : ICategoryRepository
         _context.Categories.Remove(category);
         return await _context.SaveChangesAsync() > 0;
     }
+    
+    public async Task<bool> CheckCategoryExistsAsync(int categoryId)
+    {
+        return await _context.Categories.AnyAsync(c => c.Id == categoryId);
+    }
 
     // Áp dụng sắp xếp
     private static IQueryable<Domain.Modules.Category.Entity.Category> ApplySorting(IQueryable<Domain.Modules.Category.Entity.Category> query, string sortBy, string sortOrder)

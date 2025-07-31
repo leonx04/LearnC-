@@ -56,11 +56,6 @@ public class FaqRepository : IFaqRepository
 
         return await query.AnyAsync();
     }
-
-    public async Task<bool> CheckCategoryExistsAsync(int categoryId)
-    {
-        return await _context.Faqs.AnyAsync(f => f.CategoryId == categoryId);
-    }
     
     public async Task<Domain.Modules.Faq.Entity.Faq> CreateAsync(Domain.Modules.Faq.Entity.Faq faq)
     {

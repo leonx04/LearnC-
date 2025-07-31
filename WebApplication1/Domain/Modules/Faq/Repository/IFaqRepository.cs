@@ -14,9 +14,6 @@ public interface IFaqRepository
     // Kiểm tra câu hỏi đã tồn tại
     Task<bool> IsQuestionExistsAsync(string question, int? excludeId = null);
     
-    // Kiểm tra danh mục có tồn tại không
-    Task<bool> CheckCategoryExistsAsync(int categoryId);
-    
     // Tạo mới FAQ
     Task<Entity.Faq> CreateAsync(Entity.Faq faq);
     

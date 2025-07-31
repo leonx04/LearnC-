@@ -35,9 +35,9 @@ public static class InfrastructureServices
                     
                         mySqlOptions.CommandTimeout(30);
                     })
-                .EnableSensitiveDataLogging(false) // Tắt trong production
+                .EnableSensitiveDataLogging(false)
                 .EnableServiceProviderCaching()
-                .EnableDetailedErrors(); // Tắt trong production
+                .EnableDetailedErrors();
         });
 
         // Đăng ký các service
