@@ -18,10 +18,15 @@ public class FaqController : ControllerBase
     public async Task<IActionResult> GetFaqs([FromQuery] SearchFaqRequest request)
     {
         var result = await faqService.GetPagedAsync(request);
+    
+        string message = request.GroupByCategory == true 
+            ? "Lấy danh sách câu hỏi thường gặp theo danh mục thành công"
+            : "Lấy danh sách câu hỏi thường gặp thành công";
+    
         return Ok(new
         {
             success = true,
-            message = "Lấy danh sách câu hỏi thường gặp thành công",
+            message = message,
             data = result
         });
     }

@@ -6,7 +6,7 @@ namespace Domain.Modules.Faq.Services;
 
 public interface IFaqService
 {
-    Task<PagedResult<FaqResponse>> GetPagedAsync(SearchFaqRequest request);
+    Task<object> GetPagedAsync(SearchFaqRequest request);
     
     Task<FaqResponse?> GetByIdAsync(int id);
     

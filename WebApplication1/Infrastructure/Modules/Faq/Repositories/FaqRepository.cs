@@ -1,4 +1,5 @@
 using Application.Common;
+using Domain.Enum;
 using Domain.Modules.Faq.Dto.Request;
 using Domain.Modules.Faq.Repository;
 using Infrastructure.Database;
@@ -17,7 +18,9 @@ public class FaqRepository : IFaqRepository
 
     public async Task<PagedResult<Domain.Modules.Faq.Entity.Faq>> GetPagedAsync(SearchFaqRequest request)
     {
-        var query = _context.Faqs.AsQueryable();
+        var query = _context.Faqs
+            .Include(f => f.Category)
+            .AsQueryable();
 
         // Lọc theo điều kiện
         if (!string.IsNullOrWhiteSpace(request.KeyWord))
@@ -26,10 +29,19 @@ public class FaqRepository : IFaqRepository
         if (request.Status.HasValue)
             query = query.Where(f => (int)f.Status == request.Status);
 
-        // Sắp xếp
+        if (request.GroupByCategory == true)
+        {
+            query = query.Where(f => f.Status == Domain.Enum.Status.Active && 
+                                     f.Category != null && 
+                                     f.Category.Status == Domain.Enum.Status.Active);
+        
+            var allItems = await query.ToListAsync();
+            return new PagedResult<Domain.Modules.Faq.Entity.Faq>(allItems, allItems.Count, allItems.Count, 1);
+        }
+
         if (request.SortBy != null && request.SortOrder != null)
         {
-            query =  ApplySorting(query, request.SortBy, request.SortOrder);
+            query = ApplySorting(query, request.SortBy, request.SortOrder);
         }
 
         var totalCount = await query.CountAsync();
@@ -40,6 +52,7 @@ public class FaqRepository : IFaqRepository
             .ToListAsync();
 
         return new PagedResult<Domain.Modules.Faq.Entity.Faq>(items, totalCount, request.PageSize, request.PageNumber);
+        
     }
 
     public async Task<Domain.Modules.Faq.Entity.Faq?> GetByIdAsync(int id)

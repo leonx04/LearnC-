@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Application.Entities;
 using Domain.Modules.Category.Entity;
 using Domain.Modules.Faq.Entity;
+using Domain.Modules.User.Entity;
 
 namespace Infrastructure.Database;
 
@@ -9,6 +10,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 {
     public DbSet<Category> Categories { get; set; }
     public DbSet<Faq> Faqs { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

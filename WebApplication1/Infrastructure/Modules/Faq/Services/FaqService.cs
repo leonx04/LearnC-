@@ -8,29 +8,39 @@ using Domain.Modules.Faq.Services;
 
 namespace Infrastructure.Modules.Faq.Services;
 
-public class FaqService :  IFaqService
+public class FaqService(IFaqRepository faqRepository, ICategoryRepository categoryRepository)
+    : IFaqService
 {
     private readonly IFaqRepository _faqRepository;
     private readonly ICategoryRepository _categoryRepository;
-    
-    public FaqService(IFaqRepository faqRepository, ICategoryRepository categoryRepository)
-    {
-        _faqRepository = faqRepository;
-        _categoryRepository = categoryRepository;
-    }
 
-
-
-    public async Task<PagedResult<FaqResponse>> GetPagedAsync(SearchFaqRequest request)
+    public async Task<object> GetPagedAsync(SearchFaqRequest request)
     {
         var result = await _faqRepository.GetPagedAsync(request);
-        
+    
+        if (request.GroupByCategory == true)
+        {
+            var groupedFaqs = result.Items
+                .Where(f => f.Category != null) 
+                .GroupBy(f => new { f.CategoryId, f.Category!.Name })
+                .OrderBy(g => g.Key.Name)
+                .Select(g => new FaqGroupedResponse
+                {
+                    CategoryId = g.Key.CategoryId,
+                    CategoryName = g.Key.Name,
+                    Faqs = g.Select(MapToResponse).OrderBy(f => f.Question).ToList()
+                })
+                .ToList();
+
+            return groupedFaqs;
+        }
+    
         var responses = result.Items.Select(MapToResponse);
-        
+    
         return new PagedResult<FaqResponse>(
             responses, 
             result.TotalItemsCount, 
-            request.PageSize, 
+            request.PageSize,  
             request.PageNumber);
     }
 
